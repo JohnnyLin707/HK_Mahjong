@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豪華像素風 - 香港麻雀</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 主選單 -->
+        <div id="main-menu">
+            <h1 class="pixel-title">🀄 香港麻雀 🀄</h1>
+            
+            <div class="game-info">
+                <p>作者：Johnny Lin</p>
+                <p>發行日期：2026年8月31日</p>
+            </div>
+
+            <!-- 新增：自訂玩家名字輸入框 -->
+            <div class="name-input-box">
+                <label for="player-name-input">Player Name：</label>
+                <input type="text" id="player-name-input" value="" maxlength="8" placeholder="Enter your name">
+            </div>
+
+            <div class="menu-buttons">
+                <button onclick="startGame('tutorial')">新手教學模式</button>
+                <button onclick="startGame('ai_easy')">人機對戰 (簡單)</button>
+                <button onclick="startGame('ai_medium')">人機對戰 (中等偏上)</button>
+            </div>
+        </div>
+
+        <!-- 遊戲桌面 (上帝視角) -->
+        <div id="mahjong-table" class="hidden">
+            <!-- 教學遮罩層 -->
+            <div id="tutorial-overlay" class="hidden">
+                <div id="tutorial-box">
+                    <p id="tutorial-text">歡迎來到新手教學！</p>
+                    <button id="tutorial-next">下一步</button>
+                </div>
+            </div>
+
+            <!-- 新增：4家玩家名字與得分資訊牌 (獨立定位，正向顯示) -->
+            <div class="player-badge top-badge" id="badge-2">
+                <span class="p-name" id="name-2">AI 雀仙</span>：<span class="p-score" id="score-2">0 分</span>
+            </div>
+            <div class="player-badge left-badge" id="badge-3">
+                <span class="p-name" id="name-3">AI 雀神</span>：<span class="p-score" id="score-3">0 分</span>
+            </div>
+            <div class="player-badge right-badge" id="badge-1">
+                <span class="p-name" id="name-1">AI 雀聖</span>：<span class="p-score" id="score-1">0 分</span>
+            </div>
+            <div class="player-badge bottom-badge" id="badge-0">
+                <span class="p-name" id="name-0">玩家</span>：<span class="p-score" id="score-0">0 分</span>
+            </div>
+
+            <div class="player top" id="player-2">
+                <div class="hand"></div>
+            </div>
+            <div class="player left" id="player-3">
+                <div class="hand"></div>
+            </div>
+            <div class="player right" id="player-1">
+                <div class="hand"></div>
+            </div>
+            
+            <!-- 玩家自己 (底部) -->
+            <div class="player bottom" id="player-0">
+                <div class="hand"></div>
+            </div>
+
+            <!-- 牌海 (棄牌區) -->
+            <div id="center-pool">
+                <div class="deck-info">剩餘牌數: <span id="deck-count">136</span></div>
+                <div id="discard-pile"></div>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 修改牌的底色為更真實的象牙白 */
+:root {
+    --table-green: radial-gradient(circle, #0f7a3f, #053b1b);
+    --gold-border: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700);
+    --tile-bg: #faf9f5; /* 象牙白 */
+    --neon-glow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    color: white;
+    font-family: 'Press Start 2P', 'Microsoft JhengHei', 'PingFang HK', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 1800px;
+    height: 1400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* 設置縮放中心點為正中央 */
+    transform-origin: center center;
+    /* 默認居中，scale 比例會由 JavaScript 動態計算 */
+    transform: translate(-50%, -50%) scale(1);
+    /* 防止縮放時出現模糊 */
+    backface-visibility: hidden;
+}
+
+/* =========================================
+   超大豪華主選單 (配合 1800x1400 大桌面)
+   ========================================= */
+
+#main-menu {
+    text-align: center;
+    padding-top: 150px;
+}
+
+/* 主標題：🀄 香港麻雀 🀄 (大字號 110px) */
+.pixel-title {
+    font-size: 110px;               /* 比牌面字體 (40px) 大近 3 倍 */
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow: 0 0 20px #ffea00, 0 0 40px #ff8c00, 6px 6px 12px #000;
+    margin-bottom: 30px;
+    letter-spacing: 8px;
+}
+
+/* =========================================
+   新增：作者資訊與發行日期樣式 (豪華金黃楷體)
+   ========================================= */
+.game-info {
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-size: 38px;             /* 匹配 1800x1400 大桌面尺寸 */
+    font-weight: bold;
+    color: #fff8e1;              /* 柔和象牙黃 */
+    text-shadow: 2px 2px 6px #000, 0 0 10px rgba(255, 215, 0, 0.5);
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.game-info p {
+    margin: 8px 0;
+}
+
+/* 模式選擇按鈕 (大字號 72px，比牌面字體大接近 2 倍) */
+button {
+    display: block;
+    width: 1200px;                  /* 加寬按鈕以完美容納大字體 */
+    margin: 35px auto;
+    padding: 25px 30px;
+    background: var(--gold-border);
+    color: #1a1a1a;
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: 900;
+    font-size: 72px;                /* 比牌面字體 (40px) 大接近 2 倍 */
+    border: 8px solid #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 8px 8px 0px #8b0000, 0 0 20px rgba(0,0,0,0.6);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+button:hover {
+    transform: scale(1.03);
+    box-shadow: 10px 10px 0px #8b0000, 0 0 35px #ffd700;
+}
+
+button:active {
+    transform: translate(6px, 6px);
+    box-shadow: 2px 2px 0px #8b0000;
+}
+
+
+/* 遊戲桌面 (上帝視角) */
+#mahjong-table {
+    width: 100%;
+    height: 100%;
+    background: var(--table-green);
+    border: 15px solid transparent;
+    border-image: var(--gold-border) 1;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 0 30px #d4af37;
+    position: relative;
+}
+
+.hidden { display: none !important; }
+
+/* 玩家區域絕對定位 */
+.player { position: absolute; display: flex; }
+.hand { display: flex; gap: 2px; }
+
+/* 底部玩家（你） */
+.bottom { 
+    bottom: 30px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+/* 頂部 AI */
+.top { 
+    top: 30px; 
+    left: 50%; 
+    transform: translateX(-50%) rotate(180deg); 
+}
+
+/* 左右 AI：與玩家牌保持 80x130px 一致尺寸的邊距適配 */
+.left { 
+    left: 90px;
+    top: 50%; 
+    transform-origin: center center; 
+    transform: translate(-50%, -50%) rotate(90deg); 
+}
+
+.right { 
+    right: 90px;
+    top: 50%; 
+    transform-origin: center center; 
+    transform: translate(50%, -50%) rotate(-90deg); 
+}
+
+/* 麻雀牌設計 (全部玩家統一尺寸：80px × 130px) */
+.tile {
+    width: 80px;
+    height: 130px;
+    background: var(--tile-bg);
+    border: 4px solid #555;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #333, inset -2px -2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 垂直文字核心設定 */
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 4px;
+    
+    font-size: 40px;
+    cursor: pointer;
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: 900;
+}
+.bottom .tile:hover { transform: translateY(-10px); box-shadow: var(--neon-glow); }
+
+/* =========================================
+   牌面顏色 (完美還原現實麻雀的刻字墨色)
+   ========================================= */
+.suit-wan { color: #cc0000; }  /* 萬子：硃砂紅 */
+.suit-tong { color: #0033cc; } /* 筒子：藏青藍 */
+.suit-tiao { color: #008000; } /* 索子：翠竹綠 */
+
+/* 風牌：墨黑色 */
+.honor-dong, .honor-nan, .honor-xi, .honor-bei { 
+    color: #1a1a1a; 
+}
+
+/* 三元牌：紅中、青發、藍白板 */
+.honor-zhong { color: #cc0000; } /* 紅中 */
+.honor-fa { color: #008000; }    /* 發財綠 */
+.honor-bai { color: #0033cc; }   /* 白板藍 */
+
+/* 牌海區 */
+#center-pool {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 550px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 4px solid #daa520;
+    padding: 25px;
+}
+
+/* =========================================
+   新增：剩餘牌數文字 (與麻雀牌同大小：40px 楷體)
+   ========================================= */
+.deck-info {
+    font-size: 40px;            /* 與麻雀牌 font-size: 40px 一致 */
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: bold;
+    color: #ffd700;             /* 金黃色，匹配豪華桌框 */
+    text-shadow: 2px 2px 4px #000;
+    margin-bottom: 20px;        /* 與下面的棄牌區拉開距離 */
+    text-align: center;
+}
+
+#deck-count {
+    color: #ff4500;             /* 數字使用鮮豔的橙紅色 */
+}
+
+#discard-pile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+/* 牌海裡的牌縮小 (50px × 84px) */
+#discard-pile .tile { 
+    width: 50px;
+    height: 84px;
+    font-size: 28px;
+    letter-spacing: 0px; 
+}
+
+/* 教學遮罩 */
+#tutorial-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 100;
+    display: flex; justify-content: center; align-items: center;
+}
+#tutorial-box {
+    background: #fff; color: #000; padding: 20px; border: 5px solid #ff4500;
+    font-size: 16px; text-align: center; max-width: 450px;
+    font-family: 'Microsoft JhengHei', 'PingFang HK', sans-serif;
+    line-height: 1.6;
+}
+
+/* =========================================\
+ \\ 現實麻雀特殊牌面 (白板藍框 & 一索雀鳥)     \\
+  \========================================= */
+
+/* 手牌白板藍框 (配合 80x130 牌面) */
+.bai-frame {
+    width: 53px;
+    height: 97px;
+    border: 10px solid blue;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* 牌海（棄牌區）白板藍框 (配合 50x84 棄牌) */
+#discard-pile .bai-frame {
+    width: 36px;
+    height: 66px;
+    border-width: 4px;
+}
+
+/* 手牌一索雀鳥 (配合 80x130 牌面) */
+.bird-icon {
+    width: 56px;
+    height: 56px;
+}
+
+/* 牌海（棄牌區）雀鳥 (配合 50x84 棄牌) */
+#discard-pile .bird-icon {
+    width: 36px;
+    height: 36px;
+}
+
+/* =========================================
+   教學提示框修復 (文字與「下一步」按鈕全改為 40px 麻雀牌尺寸)
+   ========================================= */
+
+#tutorial-overlay {
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75); 
+    z-index: 100;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+/* 提示框整體：擴大寬度以容納大字體 */
+#tutorial-box {
+    background: #fff; 
+    color: #1a1a1a; 
+    padding: 40px 50px; 
+    border: 8px solid #ff4500;
+    border-radius: 20px;
+    text-align: center; 
+    max-width: 1200px;             /* 擴大框體寬度 */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+/* 1. 提示文字：改為 40px (與麻雀牌字體尺寸一致) */
+#tutorial-text {
+    font-size: 40px;               /* 與麻雀牌 font-size: 40px 一致 */
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 35px;
+    color: #1a1a1a;
+}
+
+/* 2. 「下一步」按鈕：覆蓋通用大按鈕，尺寸與外框修復為適中比例 */
+#tutorial-next {
+    display: inline-block;
+    width: 320px;                  /* 適中的按鈕寬度 */
+    margin: 10px auto 0 auto;
+    padding: 15px 30px;
+    background: var(--gold-border);
+    color: #1a1a1a;
+    font-size: 40px;               /* 與麻雀牌 font-size: 40px 一致 */
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-weight: bold;
+    border: 5px solid #ff4500;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #8b0000;
+    transition: transform 0.1s;
+}
+
+#tutorial-next:hover {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 0px #8b0000;
+}
+
+#tutorial-next:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0px #8b0000;
+}
+
+/* =========================================
+   筒子與索子 SVG 矢量圖案自適應
+   ========================================= */
+.tile-svg {
+    width: 82%;
+    height: 82%;
+    display: block;
+}
+
+/* 牌海棄牌區內的 SVG 圖案適配 */
+#discard-pile .tile-svg {
+    width: 82%;
+    height: 82%;
+}
+
+/* =========================================
+   新增：首頁玩家自訂名字輸入框樣式
+   ========================================= */
+.name-input-box {
+    margin: 20px auto 40px auto;
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-size: 42px;
+    font-weight: bold;
+    color: #fff8e1;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.name-input-box input {
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-size: 38px;
+    font-weight: bold;
+    padding: 8px 20px;
+    width: 320px;
+    text-align: center;
+    border: 4px solid #ffd700;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffd700;
+    outline: none;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.name-input-box input:focus {
+    border-color: #ff4500;
+    box-shadow: 0 0 20px #ff4500;
+}
+
+/* =========================================
+   新增：麻雀桌 4 家名字與得分牌 (正面朝上)
+   ========================================= */
+.player-badge {
+    position: absolute;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.75);
+    border: 3px solid #daa520;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff8e1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+.p-name { color: #ffd700; }  /* 金黃色名字 */
+.p-score { color: #00ff00; } /* 綠色分數 */
+
+/* 4 家計分牌精密定位 (配合 1800x1400 桌面) */
+.bottom-badge {
+    bottom: 175px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-badge {
+    top: 175px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.left-badge {
+    top: 50px;
+    left: 50px;
+}
+
+.right-badge {
+    top: 50px;
+    right: 50px;
+}
