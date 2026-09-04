@@ -31,4 +31,3 @@
 1. 複製倉庫：
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
-   
