@@ -3,21 +3,14 @@
 </p>
 
 <p align="center">
-<<<<<<< HEAD
+<<<<<<< 
   <b>English</b> | 
   <a href="./README.zh-TW.md">繁體中文</a> | 
   <a href="./README.zh-CN.md">简体中文</a>
-=======
-  <b>Select Language / 選擇語言 / 选择语言</b><br>
-  <a href="#english">English</a> • 
-  <a href="#zh-hant">繁體中文</a> • 
-  <a href="#zh-hans">简体中文</a>
->>>>>>> 0f217d9a652c4430e78bc28c5e9253b44e071655
+
+
 </p>
 
----
-
-<<<<<<< HEAD
 =======
 <a id="english"></a>
 ## 🌐 English
@@ -39,9 +32,4 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
 1. Clone the repository:
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
-<<<<<<< HEAD
-   
-=======
 
-  
->>>>>>> 0f217d9a652c4430e78bc28c5e9253b44e071655
