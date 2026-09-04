@@ -3,20 +3,12 @@
 </p>
 
 <p align="center">
-
-  <b>Select Language / 選擇語言 / 选择语言</b><br>
-  <a href="#english">English</a> • 
-  <a href="#zh-hant">繁體中文</a> • 
-  <a href="#zh-hans">简体中文</a>
-
+  <b>English</b> | 
+  <a href="./README.zh-TW.md">繁體中文</a> | 
+  <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 ---
-
-
-=======
-<a id="#zh-hant"></a>
-## 🌐 繁體中文
 
 基於原生 HTML5、CSS3 與 Vanilla JavaScript 開發的輕量級網頁版**香港麻雀**遊戲。支援擬真 SVG 牌面繪製、自訂玩家名稱、AI 對手與自動適應螢幕佈局。
 
