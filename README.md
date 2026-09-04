@@ -49,7 +49,7 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
 ⚡ 零外部依賴: 100% 原生 JavaScript 與 CSS，無須安裝或構建任何套件，隨點隨玩。
 
 🛠️ 本地運行
-複製倉庫：
+1. 複製倉庫：
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 直接雙擊或以瀏覽器開啟 index.html 即可。
@@ -72,7 +72,8 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
 ⚡ 零外部依赖: 100% 原生 JavaScript 与 CSS，无需安装或构建任何依赖包，即点即玩。
 
 🛠️ 本地运行
-克隆仓库：
+1. 克隆仓库：
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
+   
 直接双击或在浏览器中打开 index.html 即可。
