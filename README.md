@@ -29,7 +29,7 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
 1. Clone the repository:
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
-Open index.html in your browser.
+
 <a id="zh-tw"></a>
 ## 🌐 🇭🇰 繁體中文
 基於原生 HTML5、CSS3 與 Vanilla JavaScript 開發的輕量級網頁版香港麻雀遊戲。支援擬真 SVG 牌面繪製、自訂玩家名稱、AI 對手與自動適應螢幕佈局。
@@ -50,9 +50,8 @@ Open index.html in your browser.
 
 🛠️ 本地運行
 複製倉庫：
-
-Bash
-git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
+   ```bash
+   git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 直接雙擊或以瀏覽器開啟 index.html 即可。
 <a id="#zh-cn"></a>
 ## 🌐 🇨🇳 简体中文
@@ -74,7 +73,6 @@ git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/Jo
 
 🛠️ 本地运行
 克隆仓库：
-
-Bash
-git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
+   ```bash
+   git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 直接双击或在浏览器中打开 index.html 即可。
