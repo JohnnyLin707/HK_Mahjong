@@ -14,7 +14,22 @@ class MahjongGame {
         this.discards = [];
         this.turn = 0;
         this.tutorialStep = 0;
+        this.aiTimer = null;     // 記錄 AI 出牌的定時器，方便返回時清除
+        this.isDestroyed = false;
         this.init();
+    }
+
+    /* 結束並清理本局，供返回主選單時呼叫 */
+    destroy() {
+        this.isDestroyed = true;
+        if (this.aiTimer) {
+            clearTimeout(this.aiTimer);
+            this.aiTimer = null;
+        }
+        document.getElementById('tutorial-overlay').classList.add('hidden');
+        document.querySelectorAll('.hand').forEach(h => h.innerHTML = '');
+        document.getElementById('discard-pile').innerHTML = '';
+        document.getElementById('deck-count').innerText = '136';
     }
 
     init() {
@@ -267,12 +282,13 @@ class MahjongGame {
         if (this.turn === 0) {
             if (this.mode === 'tutorial') this.triggerTutorialStep('player_draw');
         } else {
-            setTimeout(() => this.aiPlay(), 1000);
+            if (this.aiTimer) clearTimeout(this.aiTimer);
+            this.aiTimer = setTimeout(() => this.aiPlay(), 1000);
         }
     }
 
     playerDiscard(index) {
-        if (this.turn !== 0) return;
+        if (this.turn !== 0 || this.isDestroyed) return;
         
         const discarded = this.players[0].splice(index, 1)[0];
         this.discards.push(discarded);
@@ -287,6 +303,7 @@ class MahjongGame {
     }
 
     aiPlay() {
+        if (this.isDestroyed) return;
         const hand = this.players[this.turn];
         let discardIndex = 0;
 
@@ -394,14 +411,77 @@ class MahjongGame {
     }
 }
 
+/* 是否可使用 History API 記錄頁面狀態（file:// 下可能被瀏覽器禁用） */
+let historyApiAvailable = true;
+let gameToken = 0;   // 每局唯一編號，避免「前進」時誤顯示已結束的牌局
+
+/* 切換畫面 */
+function showMenuScreen() {
+    document.getElementById('mahjong-table').classList.add('hidden');
+    document.getElementById('main-menu').classList.remove('hidden');
+    autoFitGameArea();
+}
+
+function showGameScreen() {
+    document.getElementById('main-menu').classList.add('hidden');
+    document.getElementById('mahjong-table').classList.remove('hidden');
+    autoFitGameArea();
+}
+
+/* 返回上一頁（主選單）：結束並清理目前牌局 */
+function returnToMenu() {
+    if (window.game) {
+        window.game.destroy();
+        window.game = null;
+    }
+    showMenuScreen();
+}
+
 function startGame(mode) {
     const inputVal = document.getElementById('player-name-input').value.trim();
     const playerName = inputVal !== '' ? inputVal : '雀神'; // 若未填則預設為「雀神」
-    
-    document.getElementById('main-menu').classList.add('hidden');
-    document.getElementById('mahjong-table').classList.remove('hidden');
+
+    showGameScreen();
     window.game = new MahjongGame(mode, playerName);
+    window.game.token = ++gameToken;
+
+    // 壓入一筆歷史記錄，讓瀏覽器的「上一頁」也能返回主選單
+    try {
+        history.pushState({ page: 'game', token: gameToken }, '');
+    } catch (e) {
+        historyApiAvailable = false;
+    }
 }
+
+/* 點擊返回按鈕：優先走瀏覽器歷史，讓返回行為與瀏覽器一致 */
+function goBack() {
+    if (historyApiAvailable && history.state && history.state.page === 'game') {
+        history.back();   // 觸發 popstate，由下方監聽器統一處理
+    } else {
+        returnToMenu();   // 瀏覽器不支援 History API 時的直接降級方案
+    }
+}
+
+/* 瀏覽器上一頁 / 下一頁 */
+window.addEventListener('popstate', (e) => {
+    const page = (e.state && e.state.page) || 'menu';
+    if (page === 'game' && window.game && window.game.token === e.state.token) {
+        showGameScreen();
+    } else {
+        if (page === 'game') {
+            // 沒有可恢復的牌局，修正歷史狀態並留在主選單
+            try { history.replaceState({ page: 'menu' }, ''); } catch (err) {}
+        }
+        returnToMenu();
+    }
+});
+
+/* ESC 快捷返回 */
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !document.getElementById('mahjong-table').classList.contains('hidden')) {
+        goBack();
+    }
+});
 
 /* 1800x1400 視窗自適應 */
 function autoFitGameArea() {
@@ -421,6 +501,13 @@ function autoFitGameArea() {
     container.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
 
-window.addEventListener('DOMContentLoaded', autoFitGameArea);
+window.addEventListener('DOMContentLoaded', () => {
+    try {
+        history.replaceState({ page: 'menu' }, '');
+    } catch (e) {
+        historyApiAvailable = false;
+    }
+    autoFitGameArea();
+});
 window.addEventListener('load', autoFitGameArea);
 window.addEventListener('resize', autoFitGameArea);
