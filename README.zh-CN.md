@@ -1,16 +1,11 @@
----
-
-#### 3️⃣ `README.zh-CN.md`（簡體中文頁）
-
-```markdown
 <p align="center">
-  <h1 align="center">🀄 香港麻将 (Hong Kong Mahjong)</h1>
+  <h1 align="center">🀄 Hong Kong Mahjong (香港麻雀)</h1>
 </p>
 
 <p align="center">
   <a href="./README.md">English</a> | 
   <a href="./README.zh-TW.md">繁體中文</a> | 
-  <b>简体中文</b>
+  <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 ---
@@ -31,4 +26,3 @@
 1. 克隆仓库：
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
-   
