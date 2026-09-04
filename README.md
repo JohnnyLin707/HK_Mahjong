@@ -31,7 +31,7 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 Open index.html in your browser.
 
-🇭🇰 繁體中文
+## 🌐 🇭🇰 繁體中文
 基於原生 HTML5、CSS3 與 Vanilla JavaScript 開發的輕量級網頁版香港麻雀遊戲。支援擬真 SVG 牌面繪製、自訂玩家名稱、AI 對手與自動適應螢幕佈局。
 
 🚀 線上試玩
@@ -55,7 +55,7 @@ Bash
 git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 直接雙擊或以瀏覽器開啟 index.html 即可。
 
-🇨🇳 简体中文
+## 🌐 🇨🇳 简体中文
 基于原生 HTML5、CSS3 与 Vanilla JavaScript 开发的轻量级网页版香港麻将游戏。支持拟真 SVG 牌面绘制、自定义玩家名称、AI 对手与自动适应屏幕布局。
 
 🚀 在线试玩
