@@ -4,13 +4,13 @@
 
 <p align="center">
   <b>Select Language / 選擇語言 / 选择语言</b><br>
-  <a href="#-english">English</a> • 
-  <a href="#-繁體中文">繁體中文</a> • 
-  <a href="#-简体中文">简体中文</a>
+  <a href="#english">English</a> • 
+  <a href="#zh-tw">繁體中文</a> • 
+  <a href="#zh-cn">简体中文</a>
 </p>
 
 ---
-
+<a id="english"></a>
 ## 🌐 English
 
 A responsive, lightweight web-based **Hong Kong Mahjong** game built with pure HTML5, CSS3, and Vanilla JavaScript. Features custom SVG tile graphics, customizable player profiles, AI opponents, and adaptive screen scaling.
@@ -30,7 +30,7 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
    ```bash
    git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 Open index.html in your browser.
-
+<a id="zh-tw"></a>
 ## 🌐 🇭🇰 繁體中文
 基於原生 HTML5、CSS3 與 Vanilla JavaScript 開發的輕量級網頁版香港麻雀遊戲。支援擬真 SVG 牌面繪製、自訂玩家名稱、AI 對手與自動適應螢幕佈局。
 
@@ -54,7 +54,7 @@ Open index.html in your browser.
 Bash
 git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
 直接雙擊或以瀏覽器開啟 index.html 即可。
-
+<a id="#zh-cn"></a>
 ## 🌐 🇨🇳 简体中文
 基于原生 HTML5、CSS3 与 Vanilla JavaScript 开发的轻量级网页版香港麻将游戏。支持拟真 SVG 牌面绘制、自定义玩家名称、AI 对手与自动适应屏幕布局。
 
