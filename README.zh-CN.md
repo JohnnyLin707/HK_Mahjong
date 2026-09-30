@@ -1,15 +1,10 @@
----
-
-#### 3️⃣ `README.zh-CN.md`（簡體中文頁）
-
-```markdown
 <p align="center">
   <h1 align="center">🀄 香港麻将 (Hong Kong Mahjong)</h1>
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> | 
-  <a href="./README.zh-TW.md">繁體中文</a> | 
+  <a href="./README.md">English</a> |
+  <a href="./README.zh-TW.md">繁體中文</a> |
   <b>简体中文</b>
 </p>
 
@@ -30,6 +25,17 @@
 ### 🛠️ 本地运行
 1. 克隆仓库：
    ```bash
-   git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
-   
-   
+   git clone https://github.com/JohnnyLin707/HK_Mahjong.git
+   ```
+2. 用浏览器打开 `index.html`，或启动本地服务器：
+   ```bash
+   cd HK_Mahjong
+   python3 -m http.server 8000
+   # 然后访问 http://localhost:8000
+   ```
+
+### 📖 规则说明
+本项目实现正宗香港麻将计分：144 张牌（含 8 张花牌 春 夏 秋 冬 梅 兰 竹 菊）、自摸、碰 / 吃 / 杠，以及完整番数系统——平糊、对对糊、混一色、清一色、大三元、十三么等。
+
+### 📄 授权
+MIT

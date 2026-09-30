@@ -3,19 +3,14 @@
 </p>
 
 <p align="center">
-
   <b>Select Language / 選擇語言 / 选择语言</b><br>
-  <a href="#english">English</a> • 
-  <a href="#zh-hant">繁體中文</a> • 
-  <a href="#zh-hans">简体中文</a>
-
+  <a href="./README.md">English</a> •
+  <a href="./README.zh-TW.md">繁體中文</a> •
+  <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 ---
 
-
-=======
-<a id="english"></a>
 ## 🌐 English
 
 ### 🚀 Live Demo
@@ -31,4 +26,17 @@ Play directly in your browser: **[https://johnnylin707.github.io/HK_Mahjong/](ht
 ### 🛠️ Local Development
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/JohnnyLin707/HK_Mahjong.git](https://github.com/JohnnyLin707/HK_Mahjong.git)
+   git clone https://github.com/JohnnyLin707/HK_Mahjong.git
+   ```
+2. Open `index.html` in your browser, or serve it locally:
+   ```bash
+   cd HK_Mahjong
+   python3 -m http.server 8000
+   # then visit http://localhost:8000
+   ```
+
+### 📖 Rules
+This project implements authentic Hong Kong Mahjong scoring: 144 tiles (including 8 bonus/flower tiles 春 夏 秋 冬 梅 蘭 竹 菊), self-draw (自摸), melds (碰 / 吃 / 杠), and a full fan (番) scoring system — 平糊, 對對糊, 混一色, 清一色, 大三元, 十三么, and more.
+
+### 📄 License
+MIT
