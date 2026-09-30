@@ -449,7 +449,7 @@ button:active {
 }
 
 .top-badge {
-    top: 175px;
+    top: 280px; /* 原 175px，往下移一個自身顯示板高度(~65px)，避免遮擋頂家出牌與花牌擺放位置 */
     left: 50%;
     transform: translateX(-50%);
 }
