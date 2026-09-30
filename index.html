@@ -15,9 +15,10 @@
             <div class="game-info">
                 <p>作者：Johnny Lin</p>
                 <p>發行日期：2026年8月31日</p>
+                <p class="rules-note">正宗香港牌 · 144 張（含花牌）· 3 番起糊</p>
             </div>
 
-            <!-- 新增：自訂玩家名字輸入框 -->
+            <!-- 自訂玩家名字輸入框 -->
             <div class="name-input-box">
                 <label for="player-name-input">Player Name：</label>
                 <input type="text" id="player-name-input" value="" maxlength="8" placeholder="Enter your name">
@@ -32,7 +33,7 @@
 
         <!-- 遊戲桌面 (上帝視角) -->
         <div id="mahjong-table" class="hidden">
-            <!-- 返回主選單按鈕 (置於最上層，任何時候都可點擊) -->
+            <!-- 返回主選單按鈕 -->
             <button id="back-button" onclick="goBack()">◀ 返回</button>
 
             <!-- 教學遮罩層 -->
@@ -43,7 +44,10 @@
                 </div>
             </div>
 
-            <!-- 新增：4家玩家名字與得分資訊牌 (獨立定位，正向顯示) -->
+            <!-- 局數 / 圈風資訊 -->
+            <div id="round-info">第 1 局 · 東風圈</div>
+
+            <!-- 4 家玩家名字與得分資訊牌 -->
             <div class="player-badge top-badge" id="badge-2">
                 <span class="p-name" id="name-2">AI 雀仙</span>：<span class="p-score" id="score-2">0 分</span>
             </div>
@@ -58,24 +62,50 @@
             </div>
 
             <div class="player top" id="player-2">
+                <div class="melds"></div>
                 <div class="hand"></div>
             </div>
             <div class="player left" id="player-3">
+                <div class="melds"></div>
                 <div class="hand"></div>
             </div>
             <div class="player right" id="player-1">
+                <div class="melds"></div>
                 <div class="hand"></div>
             </div>
             
             <!-- 玩家自己 (底部) -->
             <div class="player bottom" id="player-0">
+                <div class="melds"></div>
                 <div class="hand"></div>
             </div>
 
             <!-- 牌海 (棄牌區) -->
             <div id="center-pool">
-                <div class="deck-info">剩餘牌數: <span id="deck-count">136</span></div>
+                <div class="deck-info">剩餘牌數: <span id="deck-count">144</span></div>
                 <div id="discard-pile"></div>
+            </div>
+
+            <!-- 狀態列 -->
+            <div id="status-bar"></div>
+
+            <!-- 玩家動作列 -->
+            <div id="action-bar" class="hidden">
+                <button id="btn-hu" class="hidden">胡</button>
+                <button id="btn-pong" class="hidden">碰</button>
+                <button id="btn-kong" class="hidden">槓</button>
+                <button id="btn-chow" class="hidden">上</button>
+                <button id="btn-zimo" class="hidden">自摸</button>
+                <button id="btn-kong-self" class="hidden">槓</button>
+                <button id="btn-pass">過</button>
+            </div>
+
+            <!-- 結算層 -->
+            <div id="result-overlay" class="hidden">
+                <div id="result-box">
+                    <p id="result-text"></p>
+                    <button id="result-next">下一局</button>
+                </div>
             </div>
         </div>
     </div>
